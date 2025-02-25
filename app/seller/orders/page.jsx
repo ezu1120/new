@@ -5,22 +5,45 @@ import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 import Footer from "@/components/seller/Footer";
 import Loading from "@/components/Loading";
+import { getAuth } from "@clerk/nextjs/server";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Orders = () => {
 
-    const { currency } = useAppContext();
+    const { currency,getToken,user } = useAppContext();
 
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+const fetchSellerOrders = async () => {
+  try {
+    // Ensure you are getting the correct token
+    const token = await getToken(); // Use a method to get the token
 
-    const fetchSellerOrders = async () => {
-        setOrders(orderDummyData);
-        setLoading(false);
+    const { data } = await axios.get("/api/order/seller-orders", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (data.success) {
+      setOrders(data.orders);
+      setLoading(false);
+    } else {
+      toast.error(data.message);
     }
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message || error.message || "Something went wrong"
+    );
+    setLoading(false); // Make sure to set loading to false even if there's an error
+  }
+};
+
 
     useEffect(() => {
-        fetchSellerOrders();
-    }, []);
+       if (user) {
+         fetchSellerOrders();
+       }
+    }, [user]);
 
     return (
         <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
