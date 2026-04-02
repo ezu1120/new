@@ -81,7 +81,7 @@ const Orders = () => {
                     <span className="font-medium">
                       {order.items
                         .map(
-                          (item) => item.product.name + ` x ${item.quantity}`
+                          (item) => item.product ? item.product.name + ` x ${item.quantity}` : `Unknown x ${item.quantity}`
                         )
                         .join(", ")}
                     </span>
