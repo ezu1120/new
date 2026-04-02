@@ -50,14 +50,14 @@ const {openSignIn} = useClerk()
               <UserButton.MenuItems>
                 <UserButton.Action
                   label="Cart"
-                  labelIcon={CartIcon}
+                  labelIcon={() => <CartIcon />}
                   onClick={() => router.push("/cart")}
                 />
               </UserButton.MenuItems>
               <UserButton.MenuItems>
                 <UserButton.Action
                   label="My Orders"
-                  labelIcon={BagIcon}
+                  labelIcon={() => <BagIcon />}
                   onClick={() => router.push("/my-orders")}
                 />
               </UserButton.MenuItems>
@@ -89,28 +89,28 @@ const {openSignIn} = useClerk()
               <UserButton.MenuItems>
                 <UserButton.Action
                   label="Home"
-                  labelIcon={HomeIcon}
+                  labelIcon={() => <HomeIcon />}
                   onClick={() => router.push("/")}
                 />
               </UserButton.MenuItems>
               <UserButton.MenuItems>
                 <UserButton.Action
                   label="Products"
-                  labelIcon={BoxIcon}
+                  labelIcon={() => <BoxIcon />}
                   onClick={() => router.push("/all-products")}
                 />
               </UserButton.MenuItems>
               <UserButton.MenuItems>
                 <UserButton.Action
                   label="Cart"
-                  labelIcon={CartIcon}
+                  labelIcon={() => <CartIcon />}
                   onClick={() => router.push("/cart")}
                 />
               </UserButton.MenuItems>
               <UserButton.MenuItems>
                 <UserButton.Action
                   label="My Orders"
-                  labelIcon={BagIcon}
+                  labelIcon={() => <BagIcon />}
                   onClick={() => router.push("/my-orders")}
                 />
               </UserButton.MenuItems>

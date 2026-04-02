@@ -9,8 +9,6 @@ export async function GET(request) {
     try {
       const { userId } = getAuth(request);
       await connectDB();
-      Address.length;
-      Product.length;
       // The .populate() method in Mongoose replaces referenced document IDs with actual documents from other collections.
       const orders = await Order.find({ userId }).populate(
         "address items.product"
