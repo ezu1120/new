@@ -2,20 +2,29 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import axios from "axios";
 import toast from "react-hot-toast";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    try {
+      const { data } = await axios.post("/api/contact", form);
+      if (data.success) {
+        toast.success("Message sent! We'll get back to you soon.");
+        setForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
       setLoading(false);
-      toast.success("Message sent! We'll get back to you soon.");
-      setForm({ name: "", email: "", subject: "", message: "" });
-    }, 1000);
+    }
   };
 
   return (
